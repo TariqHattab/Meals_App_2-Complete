@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Meals App 2',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
+        accentColor: Colors.amber,
+        canvasColor: Color.fromRGBO(255, 254, 229, 1),
       ),
       home: MyHomePage(),
     );
@@ -24,23 +26,30 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose category'),
+        title: Text('Choose 2 category'),
       ),
       body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 2,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3 / 2,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
           ),
           itemCount: DUMMY_CATEGORIES.length,
+          padding: const EdgeInsets.all(8.0),
           itemBuilder: (ctx, index) {
             var category = DUMMY_CATEGORIES[index];
-            return Card(
-              elevation: 4,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    DUMMY_CATEGORIES[index].color,
-                  ]),
-                ),
+            print(index);
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                gradient: LinearGradient(
+                    colors: [category.color.withOpacity(.7), category.color]),
+              ),
+              padding: const EdgeInsets.only(top: 10, left: 10),
+              child: Text(
+                category.title,
+                style: TextStyle(fontSize: 22),
               ),
             );
           }),
