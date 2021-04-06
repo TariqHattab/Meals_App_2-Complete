@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'dummy_data.dart';
+import 'package:meals_app_2/screens/meals_screen/meals_screen.dart';
+import 'package:meals_app_2/screens/tap_bar_screen/tap_bar_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,43 +16,22 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.amber,
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
       ),
-      home: MyHomePage(),
-    );
-  }
-}
+      home: TapBarScreen(),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case MealsScreen.routeName:
+            var args = settings.arguments as Map<String, dynamic>;
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Choose 2 category'),
-      ),
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-          ),
-          itemCount: DUMMY_CATEGORIES.length,
-          padding: const EdgeInsets.all(8.0),
-          itemBuilder: (ctx, index) {
-            var category = DUMMY_CATEGORIES[index];
-            print(index);
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                    colors: [category.color.withOpacity(.7), category.color]),
-              ),
-              padding: const EdgeInsets.only(top: 10, left: 10),
-              child: Text(
-                category.title,
-                style: TextStyle(fontSize: 22),
-              ),
-            );
-          }),
+            return MaterialPageRoute(
+                builder: (context) =>
+                    MealsScreen(args['id'], args['title'], args['meals']));
+            break;
+        }
+        return MaterialPageRoute(builder: (context) => TapBarScreen());
+      },
+      // routes: {
+      //   //MealsScreen.routeName: (ctx) => MealsScreen(),
+      // },
     );
   }
 }
