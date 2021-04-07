@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app_2/models/meal.dart';
+import 'package:meals_app_2/screens/meal_detail_screen/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({
@@ -9,7 +10,7 @@ class MealItem extends StatelessWidget {
 
   final Meal meal;
 
-  String get mealAffordability {
+  String get affordabilityText {
     switch (meal.affordability) {
       case Affordability.Affordable:
         return 'Affordable';
@@ -26,7 +27,7 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  String get mealComplexity {
+  String get complexityText {
     switch (meal.complexity) {
       case Complexity.Simple:
         return 'Simple';
@@ -45,74 +46,80 @@ class MealItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-                child: Image.network(meal.imageUrl),
-                //fit: BoxFit.cover,
-              ),
-              Positioned(
-                right: 10,
-                bottom: 20,
-                child: Container(
-                  width: 250,
-                  padding: const EdgeInsets.all(15),
-                  color: Colors.black38,
-                  child: Text(
-                    '${meal.title}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(MealDetailScreen.routeName, arguments: {'meal': meal});
+      },
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          children: [
+            Stack(
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.schedule),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(meal.duration.toString()),
-                  ],
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                  child: Image.network(meal.imageUrl),
+                  //fit: BoxFit.cover,
                 ),
-                Row(
-                  children: [
-                    Icon(Icons.work),
-                    SizedBox(
-                      width: 5,
+                Positioned(
+                  right: 10,
+                  bottom: 20,
+                  child: Container(
+                    width: 250,
+                    padding: const EdgeInsets.all(15),
+                    color: Colors.black38,
+                    child: Text(
+                      '${meal.title}',
+                      style: TextStyle(color: Colors.white),
                     ),
-                    Text(mealComplexity),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.attach_money),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(mealAffordability),
-                  ],
-                ),
+                  ),
+                )
               ],
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.schedule),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(meal.duration.toString()),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.work),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(complexityText),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.attach_money),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(affordabilityText),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app_2/screens/meal_detail_screen/meal_detail_screen.dart';
 import 'package:meals_app_2/screens/meals_screen/meals_screen.dart';
 import 'package:meals_app_2/screens/tap_bar_screen/tap_bar_screen.dart';
 
@@ -26,12 +27,16 @@ class MyApp extends StatelessWidget {
                 builder: (context) =>
                     MealsScreen(args['id'], args['title'], args['meals']));
             break;
+          case MealDetailScreen.routeName:
+            var args = settings.arguments as Map<String, dynamic>;
+
+            return MaterialPageRoute(
+                builder: (context) => MealDetailScreen(args['meal']));
+            break;
         }
         return MaterialPageRoute(builder: (context) => TapBarScreen());
       },
-      // routes: {
-      //   //MealsScreen.routeName: (ctx) => MealsScreen(),
-      // },
+      routes: {},
     );
   }
 }
