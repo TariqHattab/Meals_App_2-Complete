@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app_2/dummy_data.dart';
+import 'package:meals_app_2/models/meal.dart';
 import 'package:meals_app_2/screens/categories_screen/categories_screen.dart';
 import 'package:meals_app_2/screens/favorites_screen/favorites_screen.dart';
 
@@ -9,7 +11,6 @@ class TapBarScreen extends StatefulWidget {
 
 class _TapBarScreenState extends State<TapBarScreen> {
   var _selectedIndex = 0;
-
   void _setIndex(int index) {
     setState(() {
       _selectedIndex = index;

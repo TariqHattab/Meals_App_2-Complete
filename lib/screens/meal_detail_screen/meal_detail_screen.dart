@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app_2/models/meal.dart';
+import 'package:meals_app_2/providers/favorite_list_provider.dart';
+import 'package:provider/provider.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal_detail_screen';
@@ -34,9 +36,8 @@ class MealDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('${meal.title}'),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: FavoriteIcon(),
-        onPressed: () {},
+      floatingActionButton: FABisFavorite(
+        meal: meal,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -88,16 +89,41 @@ class MealDetailScreen extends StatelessWidget {
   }
 }
 
-class FavoriteIcon extends StatelessWidget {
-  const FavoriteIcon({
+class FABisFavorite extends StatefulWidget {
+  final Meal meal;
+  const FABisFavorite({
     Key key,
+    this.meal,
   }) : super(key: key);
 
   @override
+  _FABisFavoriteState createState() => _FABisFavoriteState();
+}
+
+class _FABisFavoriteState extends State<FABisFavorite> {
+  var isFavorite;
+
+  @override
   Widget build(BuildContext context) {
-    return Icon(
-      Icons.favorite_outline,
-      color: Theme.of(context).primaryColor,
+    isFavorite = Provider.of<FavoriteList>(context).isFavorite(widget.meal);
+    print('build floating $isFavorite');
+    return FloatingActionButton(
+      child: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_outline,
+        color: Colors.black,
+      ),
+      onPressed: () {
+        setState(() {
+          if (isFavorite) {
+            Provider.of<FavoriteList>(context, listen: false)
+                .removeFavorite(widget.meal);
+          } else {
+            Provider.of<FavoriteList>(context, listen: false)
+                .addFavorite(widget.meal);
+          }
+          // widget.meal.isFavorite = !widget.meal.isFavorite;
+        });
+      },
     );
   }
 }
