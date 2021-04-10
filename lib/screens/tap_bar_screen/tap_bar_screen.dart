@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app_2/main_drawer.dart';
 import 'package:meals_app_2/dummy_data.dart';
 import 'package:meals_app_2/models/meal.dart';
 import 'package:meals_app_2/screens/categories_screen/categories_screen.dart';
@@ -28,6 +29,7 @@ class _TapBarScreenState extends State<TapBarScreen> {
       appBar: AppBar(
         title: Text('Choose 2 category'),
       ),
+      drawer: MainDrawer(),
       body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app_2/dummy_data.dart';
+import 'package:meals_app_2/providers/available_list.dart';
 import 'package:meals_app_2/screens/meals_screen/meals_screen.dart';
+import 'package:provider/provider.dart';
 import '../../models/category.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -13,18 +15,23 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        var availableMeals = DUMMY_MEALS
-            .where((meal) => meal.categories.contains(category.id))
-            .toList();
-        Navigator.of(context).pushNamed(MealsScreen.routeName, arguments: {
-          'id': category.id,
-          'title': category.title,
-          'meals': availableMeals,
-        });
+    return Consumer<AvailableList>(
+      builder: (ctx, avlist, ch) {
+        return InkWell(
+            onTap: () {
+              var categoryMeals = avlist.availableList
+                  .where((meal) => meal.categories.contains(category.id))
+                  .toList();
+              Navigator.of(context)
+                  .pushNamed(MealsScreen.routeName, arguments: {
+                'id': category.id,
+                'title': category.title,
+                'meals': categoryMeals,
+              });
+            },
+            borderRadius: BorderRadius.circular(15),
+            child: ch);
       },
-      borderRadius: BorderRadius.circular(15),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app_2/providers/favorite_list_provider.dart';
+import 'package:meals_app_2/providers/available_list.dart';
+import 'package:meals_app_2/providers/favorite_list.dart';
+import 'package:meals_app_2/screens/filters_screen/filters_screen.dart';
 import 'package:meals_app_2/screens/meal_detail_screen/meal_detail_screen.dart';
 import 'package:meals_app_2/screens/meals_screen/meals_screen.dart';
 import 'package:meals_app_2/screens/tap_bar_screen/tap_bar_screen.dart';
@@ -12,8 +14,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => FavoriteList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => FavoriteList(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => AvailableList(),
+        )
+      ],
       child: MaterialApp(
         title: 'Meals App 2',
         theme: ThemeData(
@@ -40,7 +49,9 @@ class MyApp extends StatelessWidget {
           }
           return MaterialPageRoute(builder: (context) => TapBarScreen());
         },
-        routes: {},
+        routes: {
+          FiltersScreen.routeName: (ctx) => FiltersScreen(),
+        },
       ),
     );
   }

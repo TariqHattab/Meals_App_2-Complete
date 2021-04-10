@@ -20,6 +20,7 @@ class MealsScreen extends StatelessWidget {
           itemCount: availableMeals.length,
           itemBuilder: (ctx, index) {
             var meal = availableMeals[index];
+
             return MealItem(meal: meal);
           }),
     );
