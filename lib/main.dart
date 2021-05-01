@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app_2/main_drawer.dart';
 import 'package:meals_app_2/providers/available_list.dart';
 import 'package:meals_app_2/providers/favorite_list.dart';
 import 'package:meals_app_2/screens/filters_screen/filters_screen.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
           canvasColor: Color.fromRGBO(255, 254, 229, 1),
         ),
-        home: TapBarScreen(),
+        home: CustomDrawer(),
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case MealsScreen.routeName:

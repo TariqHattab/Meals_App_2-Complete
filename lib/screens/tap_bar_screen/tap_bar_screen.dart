@@ -6,6 +6,9 @@ import 'package:meals_app_2/screens/categories_screen/categories_screen.dart';
 import 'package:meals_app_2/screens/favorites_screen/favorites_screen.dart';
 
 class TapBarScreen extends StatefulWidget {
+  final Function toggle;
+
+  const TapBarScreen({Key key, this.toggle}) : super(key: key);
   @override
   _TapBarScreenState createState() => _TapBarScreenState();
 }
@@ -28,8 +31,15 @@ class _TapBarScreenState extends State<TapBarScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Choose 2 category'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          onPressed: widget.toggle,
+        ),
       ),
-      drawer: MainDrawer(),
+      // drawer: widget.toggle(),
       body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
