@@ -34,9 +34,7 @@ class _CustomDrawerState extends State<CustomDrawer>
     // minDragStartEdge = (width * .167).roundToDouble();
     // maxDragStartEdge = maxSlide - (width * .045).roundToDouble();
     print('init $width - $maxSlide - $minDragStartEdge - $maxDragStartEdge');
-    myChild = TapBarScreen(
-      toggle: toggle,
-    );
+
     _animationController = AnimationController(
       vsync: this,
       duration: _CustomDrawerState.toggleDuration,
@@ -44,7 +42,8 @@ class _CustomDrawerState extends State<CustomDrawer>
   }
 
   void toggle() {
-    _animationController.isCompleted ? open() : close();
+    print('toggle');
+    _animationController.isCompleted ? close() : open();
   }
 
   @override
@@ -103,7 +102,9 @@ class _CustomDrawerState extends State<CustomDrawer>
       onHorizontalDragEnd: _onDragEnd,
       child: AnimatedBuilder(
         animation: _animationController,
-        // child: myChild,
+        child: TapBarScreen(
+          toggle: toggle,
+        ),
         builder: (context, ch) {
           print(
               'animatedbuild $width - $maxSlide - $minDragStartEdge - $maxDragStartEdge');
@@ -120,7 +121,7 @@ class _CustomDrawerState extends State<CustomDrawer>
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                     onTap: _animationController.isCompleted ? close : null,
-                    child: myChild),
+                    child: ch),
               ),
             ],
           );
