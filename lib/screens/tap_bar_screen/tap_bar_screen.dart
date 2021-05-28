@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app_2/main_drawer.dart';
-import 'package:meals_app_2/dummy_data.dart';
-import 'package:meals_app_2/models/meal.dart';
+
 import 'package:meals_app_2/screens/categories_screen/categories_screen.dart';
 import 'package:meals_app_2/screens/favorites_screen/favorites_screen.dart';
 
@@ -29,8 +27,9 @@ class _TapBarScreenState extends State<TapBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: ValueKey('1'),
       appBar: AppBar(
-        title: Text('Choose 2 category'),
+        title: Text('Choose Category'),
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -39,7 +38,6 @@ class _TapBarScreenState extends State<TapBarScreen> {
           onPressed: widget.toggle,
         ),
       ),
-      // drawer: widget.toggle(),
       body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
@@ -58,8 +56,6 @@ class _TapBarScreenState extends State<TapBarScreen> {
         selectedItemColor: Theme.of(context).accentColor,
         onTap: _setIndex,
         type: BottomNavigationBarType.shifting,
-        //backgroundColor: Theme.of(context).accentColor,
-        //fixedColor: Theme.of(context).primaryColor,
       ),
     );
   }

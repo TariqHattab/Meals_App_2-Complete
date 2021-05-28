@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app_2/main_drawer.dart';
+import 'package:meals_app_2/custom_animated_drawer.dart';
+
 import 'package:meals_app_2/providers/available_list.dart';
 import 'package:meals_app_2/providers/favorite_list.dart';
 import 'package:meals_app_2/screens/filters_screen/filters_screen.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Meals App 2',
         theme: ThemeData(
           primarySwatch: Colors.pink,

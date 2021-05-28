@@ -78,7 +78,6 @@ class MealItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //fit: BoxFit.cover,
                 ),
                 Positioned(
                   right: 10,

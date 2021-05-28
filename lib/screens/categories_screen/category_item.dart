@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app_2/dummy_data.dart';
 import 'package:meals_app_2/providers/available_list.dart';
 import 'package:meals_app_2/screens/meals_screen/meals_screen.dart';
 import 'package:provider/provider.dart';
